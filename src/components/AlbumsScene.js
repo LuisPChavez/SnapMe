@@ -1,5 +1,6 @@
 import React, { Component } from 'React';
 import {Text, View, CameraRoll } from 'react-native';
+import {ImagePicker} from 'react-native-image-picker';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import GallaryScene from './GallaryScene';
@@ -9,23 +10,68 @@ import Button from './Button';
 
 
 class AlbumsScene extends Component {
-    
+    constructor(){
+        super();
 
-    getFromCameraRoll(numberpics){
-        CameraRoll.getPhotos( {
+        albumnames = null;
+        imageURI = [];
+
+        //this.props.albumnames = null;
+        this.state = {Allimages: null, images: []};
+        this.getAllImages();
+    }
+
+
+    getAllImages(numberpics = 1500) {
+        CameraRoll.getPhotos({
             first: numberpics,
-            groupName: "o"
         })
         .then(r => {
-            this.setState({pictures: r.edges});
-            console.log(r.edges);
+            this.setState({Allimages: r.edges},() => {this.mapAlbumName()});
+        }).catch((err) => {
+            console.log(err.message,err.code);
+        });
+    };
+
+    mapAlbumName(){
+        //this.setState({albumnames: this.state.Allimages.map(aname => {return aname.group_name})})
+        albumnames = this.state.Allimages.map(AN => {return AN.node.group_name});
+        albumnames = albumnames.filter((elem,index,self) => {return index == self.indexOf(elem)});
+        this.getSingleImages();
+    }
+
+    getSingleImages(){
+        var albumnnameslength =  albumnames.length;
+        for(var i = 0; i<albumnnameslength; i++){
+            this.getFromCameraRoll(1,albumnames[i]);
+        }
+    }
+
+    updateURI(){
+        //console.log(this.state.images);
+        imageURI.push(this.state.images[0].node.image.uri);
+    }
+
+
+    
+    getFromCameraRoll(numberpics,AN){
+        CameraRoll.getPhotos( {
+            first: numberpics,
+            groupName: AN
+        })
+        .then(r => {
+            this.setState({images: r.edges}, ()=> {this.updateURI()})
         }).catch((err) => {
             //Error Getting Pics
         });
     };
 
+
     //onClicked = {() => this.props.changeAlbum("Hello")}
     render() {
+        if (!imageURI.length) {
+            return(<View></View>);
+        }
         return (
             <View>
                 <View>
@@ -40,25 +86,8 @@ class AlbumsScene extends Component {
     }
 }
 
-/*
-const AlbumsScene = () => {
 
-    //this.props.Albums
-    albums = [];    
-    console.log(this.props.Album);
-    //Change All passed into changeAlbum when you know what album user selets
-    return (
-        <View>
-            <View>
-                <Header headerText={"Albums"} />
-            </View>
-            <View style={styles.containerStyle}>
-                <Button buttonText={this.props.Album[0].AlbumName} 
-                        onPress = {() => this.props.changeAlbum("Hello")}/>
-            </View>
-        </View>
-    );
-};*/
+
 
 const styles = {
     containerStyle: {
