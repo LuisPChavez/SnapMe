@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {View, Image, ScrollView, CameraRoll } from 'react-native';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import Header from './Header';
 
 
@@ -59,5 +61,14 @@ const styles = {
     }
 };
 
-export default GallaryScene;
+
+function mapStateToProps(state)
+{
+    return {
+        ActiveAlbum: state.Album
+    };
+}
+
+
+export default connect(mapStateToProps)(GallaryScene);
 

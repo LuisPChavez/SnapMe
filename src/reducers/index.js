@@ -1,10 +1,11 @@
 import {combineReducers} from 'redux';
-import data from './data';
+import ActiveAlbum from './ActiveAlbumReducer';
+import Pictures from './PicturesReducer';
 
 
 
 export default combineReducers({
-    data
+    Album: ActiveAlbum, 
 });
 
 
