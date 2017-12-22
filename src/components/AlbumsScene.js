@@ -13,8 +13,7 @@ class AlbumsScene extends Component {
 
     getFromCameraRoll(numberpics){
         CameraRoll.getPhotos( {
-            first: numberpics,
-            groupName: "o"
+            first: numberpics == null ? 7 : numberpics,
         })
         .then(r => {
             this.setState({pictures: r.edges});
@@ -33,7 +32,7 @@ class AlbumsScene extends Component {
                 </View>
                 <View style={styles.containerStyle}>
                     <Button buttonText={this.props.Album.AlbumName} 
-                            onClicked = {() => this.props.changeAlbum("Hello")}/>
+                            onClicked = {() => this.getFromCameraRoll()}/>
                 </View>
             </View>
         );
