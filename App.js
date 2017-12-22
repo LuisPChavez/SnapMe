@@ -11,8 +11,9 @@ import {
   Text,
   View
 } from 'react-native';
-import store from './store';
+import store from './src/store';
 import {Provider} from 'react-redux';
+import Test from './src/components'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -21,12 +22,14 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
+
 export default class App extends Component<{}> {
   render() {
     return (
       <Provider store={store}>
       <View>
-        <Text style={styles.instructions}>Hello World!</Text>
+        <Test />
       </View>
       </Provider>
     );
