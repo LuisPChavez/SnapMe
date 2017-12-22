@@ -3,4 +3,4 @@ import AScene from './AlbumsScene';
 
 
 //export default GallaryScene;
-export default AScene;
+export default GallaryScene;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Image, ScrollView, CameraRoll } from 'react-native';
+import {View, Image,  CameraRoll, FlatList, Text } from 'react-native';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Header from './Header';
@@ -8,41 +8,54 @@ import Header from './Header';
 class GallaryScene extends Component {
     state = { pictures: [] };
 
-    getPic() {
-        CameraRoll.getPhotos( {
-            first: 5,
+    componentWillMount() {
+        this.getPics();
+    }
 
+    getPics() {
+        CameraRoll.getPhotos( {
+            first: 7,
+            /*groupName: this.state.Album*/
         })
         .then(r => {
+            console.log("Pics put in state");
             this.setState({pictures: r.edges})
-            console.log(this.state);
         }).catch((err) => {
-
+            console.log(err);
         });
     };
 
-
-    renderPictures() {
-        return this.state.pictures.map(pic =>
+    renderItem(pictures){
+        console.log(pictures);
+        return(
             <Image 
                 style={styles.picThumbnailStyle}
-                source={{ uri: pic.node.image.uri}}
+                source={{ uri: pictures.item.node.image.uri}}
             />
         );
     }
 
     render() {    
-        this.getPic();    
-        return (
-            <View>
-                <Header headerText={"Pictures"} />
-                <ScrollView>
-                    <View style={styles.picThumbnailContainerStyle}>
-                        {this.renderPictures()}
-                    </View>
-                </ScrollView>
-            </View>
-        );
+
+        if( this.state.pictures.length < 4) {
+            return (
+                <Text>
+                    List is empty!!
+                </Text>
+            )
+        }
+        else {
+            return (
+                <View>
+                    <Header headerText={"Pictures"} />
+                    <FlatList 
+                        data={this.state.pictures}
+                        renderItem={this.renderItem}    
+                        numColumns = {3}            
+                    />
+                </View>
+            );
+        }
     }
 }
 
