@@ -18,12 +18,13 @@ class AlbumsScene extends Component {
 
         //this.props.albumnames = null;
         //this.state = {Allimages: null, images: []};
+    }
+
+    componentWillMount(){
         this.getAllImages();
     }
 
-
-    getAllImages(numberpics = 1500) {
-        //console.log("getAll")
+    getAllImages(numberpics = 1000) {
         CameraRoll.getPhotos({
             first: numberpics,
         })
@@ -35,25 +36,23 @@ class AlbumsScene extends Component {
     };
 
     mapAlbumName(){
-        console.log("mapAlbum")
-        //this.setState({albumnames: this.state.Allimages.map(aname => {return aname.group_name})})
         albumnames = this.state.Allimages.map(AN => {return AN.node.group_name});
         albumnames = albumnames.filter((elem,index,self) => {return index == self.indexOf(elem)});
         this.getSingleImages();
     }
 
     getSingleImages(){
-        console.log("getSingle")
+        //console.log("getSingle")
         var albumnnameslength =  albumnames.length;
+        
         for(var i = 0; i<albumnnameslength; i++){
             this.getFromCameraRoll(1,albumnames[i]);
         }
     }
 
     updateURI(){
-        //console.log(this.state.images);
         imageURI.push(this.state.images[0].node.image.uri);
-        //console.log(imageURI);
+        this.forceUpdate();
     }
 
 
@@ -72,25 +71,27 @@ class AlbumsScene extends Component {
     
     renderAlbumNames() {
         //console.log(albumnames)
-        return albumnames.map( (album) =>
-            <ButtonWithImage onPress={() => (this.props.changeAlbum(album))} buttonText={album} imageUri={imageURI[0]}/>
+        return albumnames.map( (album,index) =>
+            <ButtonWithImage key={album} onClicked={() => {this.props.changeAlbum(album)}} buttonText={album} imageUri={imageURI[index]}/>
         );
     }
 
     //onClicked = {() => this.props.changeAlbum("Hello")}
     render() {
-        console.log("rendered");
-        if (imageURI.length != 0 && imageURI.length == albumnames.length) {
+
+        if (!(imageURI.length == albumnames.length) || imageURI.length == 0) {
+            console.log("Before Render");
             return(<View></View>);
         }
+
+        console.log("After Render");
         return (
-            
             <View>
                 <View>
                     <Header headerText={"Albums"} />
                 </View>
                 <ScrollView>
-                    {/*this.renderAlbumNames()*/}
+                    {this.renderAlbumNames()}
                 </ScrollView>
             </View>
         );
