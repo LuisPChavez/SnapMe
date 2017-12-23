@@ -20,6 +20,7 @@ const ButtonWithImage = (props) => {
 
 const styles = {
     textStyle: {
+        marginLeft: 15,
         alignSelf: 'center',
         color: '#5a5a5a',
         fontSize: 20,

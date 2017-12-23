@@ -15,7 +15,7 @@ class GallaryScene extends Component {
     getPics() {
         CameraRoll.getPhotos( {
             first: 7,
-            /*groupName: this.state.Album*/
+            /*groupName: this.props.ActiveAlbum.Album,*/
         })
         .then(r => {
             console.log("Pics put in state");
@@ -49,6 +49,7 @@ class GallaryScene extends Component {
                 <View>
                     <Header headerText={"Pictures"} />
                     <FlatList 
+                        style={styles.picThumbnailContainerStyle}
                         data={this.state.pictures}
                         renderItem={this.renderItem}    
                         numColumns = {3}            
@@ -61,16 +62,17 @@ class GallaryScene extends Component {
 
 const styles = {
     picThumbnailStyle: {
-        marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        height: 110,
-        width: 110
-    },
+            margin: 7,
+            height: 105,
+            width: 105
+        },
 
     picThumbnailContainerStyle: {
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    testForPics: {
+        flex: 1
     }
 };
 
