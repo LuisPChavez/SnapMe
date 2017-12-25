@@ -16,16 +16,14 @@ class AppNavigation extends Component {
         BackHandler.removeEventListener("hardwareBackPress",this.onBackPress);
     }
 
-
     onBackPress = () => {
-        const{dispatch,navigationState} = this.props;
-        if (navigationState.stateForAlbumsScene.index <= 1) {
-            BackHandler.exitApp();
-            return;
+        const { dispatch, navigationState } = this.props;
+        if (navigationState.index === 0) {
+          return false;
         }
         dispatch(NavigationActions.back());
         return true;
-    };
+    }
     
     
     render() {
