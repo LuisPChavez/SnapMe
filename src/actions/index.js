@@ -1,9 +1,4 @@
-const changeAlbum = (AName) => {
-    console.log("User Changed Album to: ",AName);
-    return {
-        type: "ALBUM_CHANGED",
-        payload: AName,
-    }    
-};
+import {ChangeAlbum} from "./ChangeAlbum";
+import {toalbumsscene,togalleryscene} from "./scenesAction"
 
-export default changeAlbum;
+export {ChangeAlbum,toalbumsscene,togalleryscene}

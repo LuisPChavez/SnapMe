@@ -1,15 +1,18 @@
 ActiveAlbum = (state=null,action) => {
-    Val = 'All'
-    
-    switch(action.type) {
-        case "ALBUM_CHANGED":
-            Val = action.payload;
-            break;
-        default :
-            Val = 'All'
-        
+
+    if (action.type != "Navigation/NAVIGATE") {
+        switch(action.type){
+            case "ALBUM_CHANGED": {
+                Val = action.payload;
+                break;
+            }
+            default : {
+                Val = "ALL";
+                break;
+            }
+        }
     }
-    
+
     return {AlbumName: Val}
 }
 

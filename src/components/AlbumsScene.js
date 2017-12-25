@@ -2,15 +2,15 @@ import React, { Component } from 'React';
 import {Text, View, CameraRoll, ScrollView } from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import GallaryScene from './GallaryScene';
-import changeAlbum from '../actions'
+import GalleryScene from './GalleryScene';
+import {ChangeAlbum} from '../actions'
 import Header from './Header';
 import ButtonWithImage from './ButtonWithImage';
-
+import {togalleryscene} from "../actions";
+import {NavigationActions} from 'react-navigation'
 
 class AlbumsScene extends Component {
     constructor(){
-        console.log("Construct call")
         super();
 
         albumnames = [];
@@ -19,6 +19,18 @@ class AlbumsScene extends Component {
         //this.props.albumnames = null;
         //this.state = {Allimages: null, images: []};
     }
+
+    static navigationOptions = {
+        title: "AlbumScene"
+    };
+
+    navigate = (album) => {
+        this.props.ChangeAlbum(album);
+        const navigateToGalleryScene = NavigationActions.navigate({
+            routeName: "galleryScene"
+        });
+        this.props.navigation.dispatch(navigateToGalleryScene);
+    };
 
     componentWillMount(){
         this.getAllImages();
@@ -69,10 +81,13 @@ class AlbumsScene extends Component {
         });
     };
     
+
+    //<ButtonWithImage key{album} onClicked={()=> {this.props.changeAlbum(album)}} buttonText={album} imageUri = {imageURI[index]}/>
     renderAlbumNames() {
-        //console.log(albumnames)
+        //console.log(this.props.ChangeAlbum)
         return albumnames.map( (album,index) =>
-            <ButtonWithImage key={album} onClicked={() => {this.props.changeAlbum(album)}} buttonText={album} imageUri={imageURI[index]}/>
+            <ButtonWithImage key={album} onClicked={() => {this.navigate(album)}} buttonText={album} imageUri={imageURI[index]}/>
+            //<ButtonWithImage key={album} onClicked={()=> {this.props.ChangeAlbum(album)}} buttonText={album} imageUri = {imageURI[index]}/>
         );
     }
 
@@ -80,11 +95,8 @@ class AlbumsScene extends Component {
     render() {
 
         if (!(imageURI.length == albumnames.length) || imageURI.length == 0) {
-            console.log("Before Render");
             return(<View></View>);
         }
-
-        console.log("After Render");
         return (
             <View>
                 <View>
@@ -121,7 +133,16 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({changeAlbum: changeAlbum},dispatch)
-}
+    return bindActionCreators({ChangeAlbum: ChangeAlbum,togalleryscene}, dispatch);
+    //const act = bindActionCreators({ChangeAlbum: ChangeAlbum}, dispatch)
+    //console.log(bindActionCreators({ChangeAlbum: ChangeAlbum}, dispatch))
+    
+    /*console.log(act)
+    return {
+        togalleryscene,
+        act
+    };*/
 
+
+}
 export default connect(mapStateToProps,matchDispatchToProps)(AlbumsScene);

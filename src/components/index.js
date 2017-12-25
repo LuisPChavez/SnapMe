@@ -1,6 +1,9 @@
-import GallaryScene from './GallaryScene';
-import AScene from './AlbumsScene';
+import GalleryScene from './GalleryScene';
+import AlbumsScene from './AlbumsScene';
+
+
+
 
 
 //export default GallaryScene;
-export default GallaryScene;
+export {AlbumsScene,GalleryScene};
