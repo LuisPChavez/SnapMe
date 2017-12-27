@@ -16,6 +16,7 @@ class AppNavigation extends Component {
         BackHandler.removeEventListener("hardwareBackPress",this.onBackPress);
     }
 
+
     onBackPress = () => {
         const { dispatch, navigationState } = this.props;
         if (navigationState.index === 0) {

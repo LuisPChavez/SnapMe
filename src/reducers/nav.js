@@ -6,7 +6,10 @@ import { ToAlbumsScene, ToGalleryScene } from '../actions/actionTypes';
 
 //const initialState  = Navigator.router.getStateForAction(NavigationActions.init())
 
-initialState = Navigator.router.getStateForAction(Navigator.router.getActionForPathAndParams('albumScene'));
+//initialState = Navigator.router.getStateForAction(Navigator.router.getActionForPathAndParams('albumScene'));
+
+initialState = Navigator.router.getStateForAction(Navigator.router.getActionForPathAndParams("cameraScene"));
+
 
 /*
 const ActionForAlbumsScene = Navigator.router.getActionForPathAndParams(

@@ -1,6 +1,6 @@
 import {StackNavigator} from "react-navigation"
 
-import {AlbumsScene,GalleryScene} from '../components'
+import {AlbumsScene,GalleryScene,CameraScene} from '../components'
 
 const Navigator = StackNavigator({
     albumScene: {
@@ -8,6 +8,9 @@ const Navigator = StackNavigator({
     },
     galleryScene: {
         screen: GalleryScene
+    },
+    cameraScene: {
+        screen: CameraScene
     }
 });
 

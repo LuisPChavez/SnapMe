@@ -134,15 +134,5 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({ChangeAlbum: ChangeAlbum,togalleryscene}, dispatch);
-    //const act = bindActionCreators({ChangeAlbum: ChangeAlbum}, dispatch)
-    //console.log(bindActionCreators({ChangeAlbum: ChangeAlbum}, dispatch))
-    
-    /*console.log(act)
-    return {
-        togalleryscene,
-        act
-    };*/
-
-
 }
 export default connect(mapStateToProps,matchDispatchToProps)(AlbumsScene);

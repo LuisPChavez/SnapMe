@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import {View, Image,  CameraRoll, FlatList, Text, TouchableOpacity, Share } from 'react-native';
+import {View, Image,  CameraRoll, FlatList, Text } from 'react-native';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Header from './Header';
-import PictureButton from './PictureButton';
 import {togalleryscene} from "../actions/scenesAction";
 import {NavigationActions} from "react-navigation";
 
 class GalleryScene extends Component {
+
+    static navigationOptions = {
+        title: "galleryScene"
+    };
 
     state = { pictures: [] };
 
@@ -18,53 +21,32 @@ class GalleryScene extends Component {
 
     getPics() {
         CameraRoll.getPhotos( {
-            first: 1500,
+            first: 7,
             groupName: this.props.ActiveAlbum.AlbumName
         })
         .then(r => {
-            //console.log("Pics put in state");
             this.setState({pictures: r.edges})
         }).catch((err) => {
             console.log(err);
         });
     };
 
-    onDeezNuts() {
-        console.log("asdfsadfdsaf")
-    }
-
     renderItem(pictures){
-        console.log("render pic");
         return(
-            <TouchableOpacity >
-                <Image 
-                    style={styles.pictureStyle}
-                    source={{ uri : pictures.item.node.image.uri }}
-                />
-            </TouchableOpacity>
+            <Image 
+                style={styles.picThumbnailStyle}
+                source={{ uri: pictures.item.node.image.uri}}
+            />
         );
     }
 
-    /*
-    { () => 
-                Share.share({
-                    message: 'BAM: we\'re helping your business with awesome React Native apps',
-                    url: 'http://bam.tech',
-                    title: 'Wow, did you see that?'
-                }, {
-                      // Android only:
-                      dialogTitle: 'Share BAM goodness',
-                      // iOS only:
-                })
-                */
-    
-    // Item refers
     _keyExtractor = (item, index) => { 
         item.node.image.uri
-        console.log(item.node.image.uri)
     };
 
+
     render() {    
+
         if( this.state.pictures.length <= 0) {
             return (
                 <Text>
@@ -72,26 +54,29 @@ class GalleryScene extends Component {
                 </Text>
             )
         }
-        
-        console.log("else")
-        return (
-            <View>
-                <Header headerText={"Pictures"} />
-                <FlatList 
-                    data={this.state.pictures}
-                    renderItem={this.renderItem}
-                    keyExtractor={this._keyExtractor}    
-                    numColumns = {10}            
-                />
-            </View>
-        )  
+        else {
+            return (
+                <View>
+                    <Header headerText={"Pictures"} />
+                    <FlatList
+                        keyExtractor={this._keyExtractor} 
+                        data={this.state.pictures}
+                        renderItem={this.renderItem}    
+                        numColumns = {1}            
+                    />
+                </View>
+            );
+        }
     }
 }
 
 const styles = {
-    pictureStyle: {
-        height: 200,
-        width: 200
+    picThumbnailStyle: {
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        height: 110,
+        width: 110
     },
 
     picThumbnailContainerStyle: {
