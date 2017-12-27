@@ -1,5 +1,5 @@
 import React, {Component} from "React";
-import {BackHandler} from "react-native";
+import {BackHandler, StatusBar} from "react-native";
 import {connect} from "react-redux";
 import {addNavigationHelpers, NavigationActions} from "react-navigation"
 import NavigationStack from "./navigationStack"
@@ -8,6 +8,7 @@ import NavigationStack from "./navigationStack"
 class AppNavigation extends Component {
     
     componentDidMount(){
+        StatusBar.setHidden(true);
         BackHandler.addEventListener("hardwareBackPress",this.onBackPress);
     }
 
@@ -25,6 +26,12 @@ class AppNavigation extends Component {
         dispatch(NavigationActions.back());
         return true;
     }
+
+    static navigationOptions = {
+        header: {
+            visible: false,
+        }
+    };
     
     
     render() {

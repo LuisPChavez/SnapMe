@@ -1,4 +1,4 @@
 import {ChangeAlbum} from "./ChangeAlbum";
-import {toalbumsscene,togalleryscene} from "./scenesAction"
+import {toalbumsscene,togalleryscene,tooptionsscene} from "./scenesAction"
 
 export {ChangeAlbum,toalbumsscene,togalleryscene}

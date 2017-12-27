@@ -9,6 +9,8 @@ const togalleryscene = () => ({
     type: ToGalleryScene
 })
 
+const tooptionsscene = () => ({
+    type: ToOptionsScene
+})
 
-
-export {toalbumsscene,togalleryscene};
+export {toalbumsscene,togalleryscene,tooptionsscene};

@@ -8,6 +8,10 @@ import ButtonWithSwitch from './ButtonWithSwitch'
 
 class OptionsScene extends Component {
 
+    static navigationOptions = {
+        title: "optionsScene"
+    };
+
     render() {
         return(
             <View>
@@ -25,7 +29,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({/* Options here,*/togalleryscene}, dispatch);
+    return bindActionCreators({/* Options here,togalleryscene*/}, dispatch);
     //const act = bindActionCreators({ChangeAlbum: ChangeAlbum}, dispatch)
     //console.log(bindActionCreators({ChangeAlbum: ChangeAlbum}, dispatch))
     
@@ -34,7 +38,6 @@ function matchDispatchToProps(dispatch){
         togalleryscene,
         act
     };*/
-
 
 }
 export default connect(mapStateToProps,matchDispatchToProps)(OptionsScene);
