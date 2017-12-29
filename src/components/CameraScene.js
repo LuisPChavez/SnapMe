@@ -16,6 +16,9 @@ import {connect} from 'react-redux';
 import {toalbumsscene} from '../actions';
 import {NavigationActions} from 'react-navigation';
 import AlbumScene from './AlbumsScene';
+import EntypoIcons from 'react-native-vector-icons/Entypo'
+import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
+import FeatherAwesomeIcons from 'react-native-vector-icons/Feather';
 
 
 class CameraScene extends Component {
@@ -58,29 +61,31 @@ class CameraScene extends Component {
                     aspect={Camera.constants.Aspect.fit}
                     >
                     <View style={styles.buttonContainer} >
-                        <TouchableOpacity onPress={this.navigateToOptions} >
-                            <Image 
-                                style={styles.imageStyle} 
-                                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Photo-camera-in-circular-outlined-interface-button.svg/1000px-Photo-camera-in-circular-outlined-interface-button.svg.png'}} 
-                            />
-                        </TouchableOpacity>
+                        <View style={styles.topButtonsContainer}>
+                            <View>
+                                <TouchableOpacity 
+                                    onPress={this.navigateToOptions} 
+                                    style={styles.settingsButton}
+                                    >
+                                    <FeatherAwesomeIcons name="settings" color="#ffffff" size={30} />
+                                </TouchableOpacity>
+                            </View>
+                            
+                            <View>
+                                <TouchableOpacity onPress={this.navigateToGallary} style={styles.gallaryButton}> 
+                                    <EntypoIcons name='folder-images' color="#ffffff" size={30} />
+                                </TouchableOpacity>
+                            </View>
 
-                        <TouchableOpacity 
-                            style={{ alignSelf: 'flex-end' }}
-                            onPress={this.takePicture.bind(this)} >
-                            <Image
-                                style={styles.imageStyle} 
-                                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Photo-camera-in-circular-outlined-interface-button.svg/1000px-Photo-camera-in-circular-outlined-interface-button.svg.png'}} 
-                            />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={this.navigateToGallary} >
-                            <Image
-                                style={styles.imageStyle} 
-                                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Photo-camera-in-circular-outlined-interface-button.svg/1000px-Photo-camera-in-circular-outlined-interface-button.svg.png'}} 
-                            />
-                        </TouchableOpacity>
+                        </View>
                     </View>
+                    <View style={{flex:1, justifyContent:'flex-end' ,alignSelf: 'center'}}>
+                            <TouchableOpacity 
+                                onPress={this.takePicture.bind(this)} >
+                                <FontAwesomeIcons name="circle-o" color="#ffffff" size={100} />
+                            </TouchableOpacity>
+                    </View>
+
                 </Camera>
             </View>
         );
@@ -90,12 +95,24 @@ class CameraScene extends Component {
 
 
 const styles = StyleSheet.create({
+    topButtonsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "space-between"
+    },
+
     buttonContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
     },
-    
+    gallaryButton: {
+        marginTop: 10,
+        marginRight: 20
+    },
+    settingsButton: {
+        marginTop: 10,
+        marginLeft: 20
+    },
     viewContainer: {
         flex: 1,
         backgroundColor:  "#000",

@@ -7,10 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "haar-detect": "^0.4.0",
     "react": "16.0.0",
     "react-native": "0.51.0",
     "react-native-camera": "^0.12.0",
     "react-native-navigation": "^1.1.319",
+    "react-native-share": "^1.0.23",
+    "react-native-vector-icons": "^4.4.3",
     "react-navigation": "^1.0.0-beta.22",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2"

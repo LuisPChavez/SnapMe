@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Image,  CameraRoll, FlatList, Text } from 'react-native';
+import {View, Image,  CameraRoll, FlatList, Text, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Header from './Header';
@@ -9,7 +9,8 @@ import {NavigationActions} from "react-navigation";
 class GalleryScene extends Component {
 
     static navigationOptions = {
-        title: "galleryScene"
+        title: "galleryScene",
+        header: null
     };
 
     state = { pictures: [] };
@@ -17,6 +18,10 @@ class GalleryScene extends Component {
 
     componentWillMount() {
         this.getPics();
+    }
+
+    openSharing() {
+        console.log(":sdfd")
     }
 
     getPics() {
@@ -31,19 +36,21 @@ class GalleryScene extends Component {
         });
     };
 
-    renderItem(pictures){
+    renderItem(item){
+
         return(
-            <Image 
-                style={styles.picThumbnailStyle}
-                source={{ uri: pictures.item.node.image.uri}}
-            />
+            <View>
+                <TouchableOpacity 
+                    onPress={() => {console.log("asdf")}} 
+                    >
+                    <Image 
+                        style={styles.picThumbnailStyle}
+                        source={{ uri: item.item.node.image.uri}}
+                    />
+                </TouchableOpacity>
+            </View>
         );
     }
-
-    _keyExtractor = (item, index) => { 
-        item.node.image.uri
-    };
-
 
     render() {    
 
@@ -59,7 +66,7 @@ class GalleryScene extends Component {
                 <View>
                     <Header headerText={"Pictures"} />
                     <FlatList
-                        keyExtractor={this._keyExtractor} 
+                        keyExtractor={item => item.node.image.uri} 
                         data={this.state.pictures}
                         renderItem={this.renderItem}    
                         numColumns = {1}            

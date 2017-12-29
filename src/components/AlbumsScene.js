@@ -21,7 +21,8 @@ class AlbumsScene extends Component {
     }
 
     static navigationOptions = {
-        title: "AlbumScene"
+        title: "AlbumScene",
+        header: null
     };
 
     navigate = (album) => {

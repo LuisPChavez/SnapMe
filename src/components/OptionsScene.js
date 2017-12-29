@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import Header from './Header'
-import ButtonWithSwitch from './ButtonWithSwitch'
-
+import { View, Image } from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import Header from './Header';
+import ButtonWithSwitch from './ButtonWithSwitch';
+import { createDetector } from "haar-detect";
 
 class OptionsScene extends Component {
-
+     
     static navigationOptions = {
         title: "optionsScene"
     };
@@ -17,6 +17,7 @@ class OptionsScene extends Component {
             <View>
                 <Header headerText={"Options"} />
                 <ButtonWithSwitch buttonText={"Test"} />
+                <Image source={{ uri: "https://i.pinimg.com/736x/dc/5c/ca/dc5ccad5bd921a27a657ecfada3f00de--live-life-anti-aging.jpg" }} />
             </View>
         );
     }
