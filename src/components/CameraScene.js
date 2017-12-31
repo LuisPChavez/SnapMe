@@ -19,9 +19,15 @@ import AlbumScene from './AlbumsScene';
 import EntypoIcons from 'react-native-vector-icons/Entypo'
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import FeatherAwesomeIcons from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 
 class CameraScene extends Component {
+    constructor() {
+        super();
+        this.state = {type: "back"}
+    }
+
     static navigationOptions = {
         title: "CameraScene",
         header: null
@@ -49,6 +55,15 @@ class CameraScene extends Component {
           .then((data) => console.log(data))
           .catch(err => console.error(err));
     }
+
+    changeCameraType() {
+        if( this.state.type == "back") {
+            this.setState({type: "front"});
+        }
+        else if( this.state.type == "front") {
+            this.setState({type: "back"});
+        }
+    }
     
     render(){
         return (
@@ -59,6 +74,7 @@ class CameraScene extends Component {
                     }}
                     style={styles.preview}
                     aspect={Camera.constants.Aspect.fit}
+                    type={this.state.type}
                     >
                     <View style={styles.buttonContainer} >
                         <View style={styles.topButtonsContainer}>
@@ -79,11 +95,22 @@ class CameraScene extends Component {
 
                         </View>
                     </View>
-                    <View style={{flex:1, justifyContent:'flex-end' ,alignSelf: 'center'}}>
-                            <TouchableOpacity 
-                                onPress={this.takePicture.bind(this)} >
-                                <FontAwesomeIcons name="circle-o" color="#ffffff" size={100} />
-                            </TouchableOpacity>
+                    <View style={styles.buttonContainer}>
+                        <View style={styles.bottomButtonsContainer}>
+
+                            <View style={{}}>
+                                <TouchableOpacity 
+                                    onPress={this.changeCameraType.bind(this)} >
+                                    <MaterialIcons name="switch-camera" color="#ffffff" size={100} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{justifyContent: 'center'}}>
+                                <TouchableOpacity 
+                                    onPress={this.takePicture.bind(this)} >
+                                    <FontAwesomeIcons name="circle-o" color="#ffffff" size={100} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
 
                 </Camera>
@@ -100,7 +127,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between"
     },
-
+    bottomButtonsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end'
+    },
     buttonContainer: {
         flex: 1,
         flexDirection: 'row',
