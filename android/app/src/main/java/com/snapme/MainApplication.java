@@ -3,6 +3,7 @@ package com.snapme;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.RNReactNativeSharingWinstagramPackage;
 import cl.json.RNSharePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import cl.json.RNSharePackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new RNReactNativeSharingWinstagramPackage(),
           new RNSharePackage(),
           new VectorIconsPackage(),
           new RCTCameraPackage()

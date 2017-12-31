@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {View, Image,  CameraRoll, FlatList, Text, TouchableOpacity } from 'react-native';
+import {View, Image,  CameraRoll, FlatList, Text, TouchableOpacity, Share, Linking, Dimensions } from 'react-native';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Header from './Header';
 import {togalleryscene} from "../actions/scenesAction";
 import {NavigationActions} from "react-navigation";
+import Picture from './Picture';
+
 
 class GalleryScene extends Component {
 
@@ -13,11 +15,9 @@ class GalleryScene extends Component {
         header: null
     };
 
-    state = { pictures: [] };
-
-
     componentWillMount() {
         this.getPics();
+        
     }
 
     openSharing() {
@@ -26,7 +26,7 @@ class GalleryScene extends Component {
 
     getPics() {
         CameraRoll.getPhotos( {
-            first: 7,
+            first: 1500,
             groupName: this.props.ActiveAlbum.AlbumName
         })
         .then(r => {
@@ -37,18 +37,9 @@ class GalleryScene extends Component {
     };
 
     renderItem(item){
-
+        console.log(item.item.node.image.uri)
         return(
-            <View>
-                <TouchableOpacity 
-                    onPress={() => {console.log("asdf")}} 
-                    >
-                    <Image 
-                        style={styles.picThumbnailStyle}
-                        source={{ uri: item.item.node.image.uri}}
-                    />
-                </TouchableOpacity>
-            </View>
+            <Picture uri={item.item.node.image.uri} />
         );
     }
 
@@ -63,13 +54,14 @@ class GalleryScene extends Component {
         }
         else {
             return (
-                <View>
-                    <Header headerText={"Pictures"} />
+                <View style={{flex: 1}} >
+                    <Header headerText={"Pictures"} style={{marginBottom: 10}}/>
                     <FlatList
                         keyExtractor={item => item.node.image.uri} 
                         data={this.state.pictures}
                         renderItem={this.renderItem}    
-                        numColumns = {1}            
+                        numColumns = {2}   
+                        removeClippedSubviews={true}         
                     />
                 </View>
             );
@@ -77,13 +69,14 @@ class GalleryScene extends Component {
     }
 }
 
+
 const styles = {
     picThumbnailStyle: {
-        marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        height: 110,
-        width: 110
+        marginTop: 5,
+        marginLeft: 2,
+        marginRight: 2,
+        height: this.sizeOfPic,
+        width: this.sizeOfPic
     },
 
     picThumbnailContainerStyle: {

@@ -99,11 +99,12 @@ class AlbumsScene extends Component {
             return(<View></View>);
         }
         return (
-            <View>
+            <View style={styles.viewContainer}>
                 <View>
                     <Header headerText={"Albums"} />
                 </View>
-                <ScrollView>
+                
+                <ScrollView style={styles.containerStyle}>
                     {this.renderAlbumNames()}
                 </ScrollView>
             </View>
@@ -115,14 +116,14 @@ class AlbumsScene extends Component {
 
 
 const styles = {
+    viewContainer: {
+        flex : 1,
+        backgroundColor: "#151515"
+    },
     containerStyle: {
-        borderBottomWidth: 1,
-        padding: 5,
-        backgroundColor: '#fff',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        borderColor: '#ddd',
-        position: 'relative'
+        flex: 1,
+        backgroundColor: "#5A5A5A",
+        borderRadius: 20
     }
 }
 

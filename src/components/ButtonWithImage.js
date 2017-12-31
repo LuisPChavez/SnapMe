@@ -21,24 +21,27 @@ const ButtonWithImage = (props) => {
 const styles = {
     textStyle: {
         alignSelf: 'center',
-        color: '#5a5a5a',
+        color: '#ffffff',
         fontSize: 20,
         fontWeight: '600',
         paddingTop: 10,
         paddingBottom: 10,
+        marginLeft: 10
     },
     photoStyle: {
         height: 75,
-        width: 75
+        width: 75,
+        borderRadius: 10
     },
     buttonStyle: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#D3D3D3',
-        marginTop: 5,
-        marginBottom: 5,
-        marginLeft: 5,
-        marginRight: 5
+        backgroundColor: '#7D7D7D',
+        marginLeft: 4,
+        marginRight: 4,
+        marginTop: 10,
+        marginBottom: 10,
+        borderRadius: 10
     }
 };
 

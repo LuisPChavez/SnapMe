@@ -1,4 +1,10 @@
 {
   "name": "SnapMe",
-  "displayName": "SnapMe"
+  "displayName": "SnapMe",
+  "expo": {
+      "name": "SnapMe",
+      "slug": "SnapMe",
+      "sdkVersion": "25.0.2"
+    }
+
 }
