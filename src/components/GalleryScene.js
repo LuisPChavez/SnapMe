@@ -10,6 +10,11 @@ import Picture from './Picture';
 
 class GalleryScene extends Component {
 
+    constructor(){
+        super()
+        this.state = {pictures: []}
+    }
+
     static navigationOptions = {
         title: "galleryScene",
         header: null

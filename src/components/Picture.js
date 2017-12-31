@@ -1,11 +1,19 @@
 import React from 'react';
-import { Image, TouchableOpacity, Dimensions } from 'react-native';
+import { Image, TouchableOpacity, Dimensions, Share } from 'react-native';
 
 const Picture = (props) => {
     return (
         <TouchableOpacity 
             onPress={ () => {
-                console.log("sdf")
+                Share.share({
+                    message: 'BAM: we\'re helping your business with awesome React Native apps',
+                    url: 'http://bam.tech',
+                    title: 'Wow, did you see that?'
+                  }, {
+                    // Android only:
+                    dialogTitle: 'Share BAM goodness',
+                    // iOS only:
+                })
             }}>
             <Image
                 style={styles.picThumbnailStyle}
