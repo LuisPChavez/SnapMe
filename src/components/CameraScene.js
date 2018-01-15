@@ -63,6 +63,7 @@ class CameraScene extends React.Component {
     }
 
     toggleView() {
+        console.log("sdf")
         this.setState({
             showGallery: !this.state.showGallery,
         });
@@ -125,7 +126,10 @@ class CameraScene extends React.Component {
     };
 
 
-    onFacesDetected = ({faces}) => this.setState({faces});
+    onFacesDetected = ({faces}) => {
+        this.setState({faces})
+        
+    };
     onFaceDetectionError = state => console.warn('Faces detection error:', state);
 
     renderFace({bounds, faceID, rollAngle, yawAngle}) {
@@ -134,8 +138,8 @@ class CameraScene extends React.Component {
                 key={faceID}
                 transform = {[
                     {perspective: 600},
-                    {rotateZ: '${rollAngle.toFixed(0)}deg'},
-                    {rotateY: '${yawAngle.toFixed(0)deg'},
+                    //{rotateZ: '${rollAngle.toFixed(0)}deg'},
+                    //{rotateY: '${yawAngle.toFixed(0)deg'},
                 ]}
                 style={[
                     styles.face,
@@ -146,9 +150,9 @@ class CameraScene extends React.Component {
                     },
                 ]}
                 >
-                <Text styles={styles.faceText}> ID: {faceID}</Text>
-                <Text style={styles.faceText}> rollAngle: {rollAngle.toFixed(0)}</Text>
-                <Text style={styles.faceText}> yawAngle: {yawAngle.toFixed(0)}</Text>
+                <Text style={styles.faceText}> ID: {faceID}</Text>
+                {/*<Text style={styles.faceText}> rollAngle: {rollAngle.toFixed(0)}</Text>*/}
+                {/*<Text style={styles.faceText}> yawAngle: {yawAngle.toFixed(0)}</Text>*/}
             </View>
         );
     }
