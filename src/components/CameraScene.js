@@ -119,8 +119,12 @@ class CameraScene extends React.Component {
 
     takePicture = async function() {
         if (this.camera) {
+            console.log("Pic Taken")
             this.camera.takePictureAsync().then(data => {
-                console.log('data: ', data);
+                console.log('data: ', data );
+                const base64 = 'data:image/png;base64, ' + data
+                console.log(base64);
+                return <Image style={{ height: 200, width: 200 }} source={{uri: base64}} />
             });
         }
     };
@@ -204,7 +208,6 @@ class CameraScene extends React.Component {
         );
     }
 
-
     renderCamera() {
         return (
             <RNCamera
@@ -281,7 +284,7 @@ class CameraScene extends React.Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.flipButton, styles.galleryButton, {flex: 0.25,alignSelf: 'flex-end'}]}
-                        onPress = {this.toggleView.bind(this)}
+                        onPress = {this.takePicture.bind(this)/*this.toggleView.bind(this)*/}
                         >
                         <Text style={styles.flipText}> Gallery </Text>
                     </TouchableOpacity>
